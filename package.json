@@ -8,16 +8,10 @@
     "scripts": {
         "build": "rollup -c",
         "prepublishOnly": "npm run lint && npm run test && npm run build",
-        
-            "test": "ava --verbose --serial",
-            
-                "test:report": "npm run test -- --tap | tap-junit -o test-results -n test-results.xml",
-            
-            "test:cover": "nyc npm run test:report",
-        
-        
-            "lint": "eslint src tests"
-        
+        "test": "ava --verbose --serial",
+        "test:report": "npm run test -- --tap | tap-junit -o test-results -n test-results.xml",
+        "test:cover": "nyc npm run test:report",
+        "lint": "eslint src tests"
     },
     "files": [
         "dist",
@@ -27,18 +21,31 @@
     "keywords": [
         "rollup",
         "rollup-plugin",
-        "lit","styles"
+        "lit",
+        "styles"
     ],
     "author": "Blake <blakemealey@gmail.com>",
     "license": "MIT",
-    
-        "repository": {
-            "type": "git",
-            "url": "git+https://github.com/blake-mealey/rollup-plugin-lit-styles.git"
-        },
-        "bugs": {
-            "url": "https://github.com/blake-mealey/rollup-plugin-lit-styles/issues"
-        },
-        "homepage": "https://github.com/blake-mealey/rollup-plugin-lit-styles#readme"
-    
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/blake-mealey/rollup-plugin-lit-styles.git"
+    },
+    "bugs": {
+        "url": "https://github.com/blake-mealey/rollup-plugin-lit-styles/issues"
+    },
+    "homepage": "https://github.com/blake-mealey/rollup-plugin-lit-styles#readme",
+    "devDependencies": {
+        "@babel/core": "^7.6.4",
+        "@babel/preset-env": "^7.6.3",
+        "ava": "^2.4.0",
+        "eslint": "^6.6.0",
+        "eslint-config-airbnb-base": "^14.0.0",
+        "eslint-plugin-import": "^2.18.2",
+        "nyc": "^14.1.1",
+        "rollup": "^1.26.0",
+        "rollup-plugin-auto-external": "^2.0.0",
+        "rollup-plugin-babel": "^4.3.3",
+        "sinon": "^7.5.0",
+        "tap-junit": "^3.1.0"
+    }
 }
