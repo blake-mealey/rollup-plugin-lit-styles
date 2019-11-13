@@ -1,0 +1,44 @@
+{
+    "name": "rollup-plugin-lit-styles",
+    "version": "0.0.1",
+    "description": "pluginDescription",
+    "main": "dist/index.cjs.js",
+    "module": "dist/index.es.js",
+    "types": "index.d.ts",
+    "scripts": {
+        "build": "rollup -c",
+        "prepublishOnly": "npm run lint && npm run test && npm run build",
+        
+            "test": "ava --verbose --serial",
+            
+                "test:report": "npm run test -- --tap | tap-junit -o test-results -n test-results.xml",
+            
+            "test:cover": "nyc npm run test:report",
+        
+        
+            "lint": "eslint src tests"
+        
+    },
+    "files": [
+        "dist",
+        "index.d.ts",
+        "README.md"
+    ],
+    "keywords": [
+        "rollup",
+        "rollup-plugin",
+        "lit","styles"
+    ],
+    "author": "Blake <blakemealey@gmail.com>",
+    "license": "MIT",
+    
+        "repository": {
+            "type": "git",
+            "url": "git+https://github.com/blake-mealey/rollup-plugin-lit-styles.git"
+        },
+        "bugs": {
+            "url": "https://github.com/blake-mealey/rollup-plugin-lit-styles/issues"
+        },
+        "homepage": "https://github.com/blake-mealey/rollup-plugin-lit-styles#readme"
+    
+}

@@ -1,0 +1,44 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: Npm@1
+  displayName: Install dependencies
+  inputs:
+    command: install
+
+- task: Npm@1
+  displayName: Run linter
+  inputs:
+    command: custom
+    customCommand: run lint
+
+- task: Npm@1
+  displayName: Run tests with coverage
+  inputs:
+    command: custom
+    customCommand: run test:cover
+
+- task: PublishTestResults@2
+  displayName: Publish test results
+  condition: succeededOrFailed()
+  inputs:
+    testResultsFormat: JUnit
+    searchFolder: $(System.DefaultWorkingDirectory)/test-results
+    testResultsFiles: 'test-results.xml'
+
+- task: PublishCodeCoverageResults@1
+  displayName: Publsh coverage results
+  condition: succeededOrFailed()
+  inputs:
+    codeCoverageTool: Cobertura
+    summaryFileLocation: coverage/cobertura-coverage.xml
+
+- task: Npm@1
+  displayName: Build package
+  inputs:
+    command: custom
+    customCommand: run build
