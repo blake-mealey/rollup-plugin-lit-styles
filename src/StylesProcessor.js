@@ -6,7 +6,7 @@ class StylesProcessor {
     constructor(options = {}) {
         const {
             extensions = [],
-            process = () => {}
+            process = async () => {}
         } = options;
 
         this._extensionsMap = StylesProcessor.normalizeExtensions(extensions)
