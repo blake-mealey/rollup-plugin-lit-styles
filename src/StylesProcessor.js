@@ -6,20 +6,21 @@ class StylesProcessor {
     constructor(options = {}) {
         const {
             extensions = [],
-            processor = () => {}
+            process = () => {}
         } = options;
 
-        this._extensions = StylesProcessor.normalizeExtensions(extensions);
-        this._processesAll = this._extensions.includes(`*`);
-        this._processor = processor;
+        this._extensionsMap = StylesProcessor.normalizeExtensions(extensions)
+            .reduce((acc, ext) => ({ ...acc, [ext]: true }), {});
+        this._processesAll = `*` in this._extensionsMap;
+        this._process = process;
     }
 
-    async process() {
-        return this._processor();
+    async process(options) {
+        return (await this._process(options)) || {};
     }
 
     doesProcess(extension) {
-        return this._processesAll || this.extensions.includes(extension);
+        return this._processesAll || extension in this._extensionsMap;
     }
 }
 

@@ -8,7 +8,7 @@ import sass from 'sass';
 import StylesProcessor from './StylesProcessor';
 
 const defaultPreProcessors = {
-    sass: {
+    sass: new StylesProcessor({
         extensions: [ `.scss`, `.sass` ],
         async process(options = {}) {
             const {
@@ -19,21 +19,21 @@ const defaultPreProcessors = {
 
             pluginOptions.sass = pluginOptions.sass || {};
 
-            const result = await (promisify(sass.render)({
+            // Note: we use renderSync because it is 'almost twice as fast as render'
+            // (see: https://sass-lang.com/documentation/js-api#render)
+            const result = sass.renderSync({
                 ...pluginOptions.sass,
                 data: styles.toString(),
                 includePaths: [ dirname(moduleId), ...(pluginOptions.sass.includePaths || []) ]
-            }));
-
-            console.log(result);
+            });
 
             return {
                 styles: result.css,
                 watchFiles: result.stats.includedFiles
             };
         }
-    },
-    postcss: {
+    }),
+    postcss: new StylesProcessor({
         extensions: [ `*` ],
         async process(options = {}) {
             const {
@@ -54,17 +54,15 @@ const defaultPreProcessors = {
                     from: moduleId
                 });
 
-            // print any warnings
-            result.warnings().forEach(warn => console.warn(warn));
-
             return {
-                styles: result.css,
+                styles: result.css.toString(),
                 watchFiles: result.messages
                     .filter(message => message.type === `dependency` && message.file)
-                    .map(message => message.file)
+                    .map(message => message.file),
+                warnings: result.warnings()
             };
         }
-    }
+    })
 };
 
 export default function litStyles(options = {}) {
@@ -91,12 +89,13 @@ export default function litStyles(options = {}) {
             const idExtension = extname(id);
             if (extensions.includes(idExtension)) {
                 // Load the CSS file
-                let styles = await promisify(readFile)(id);
+                let styles = (await promisify(readFile)(id)).toString();
 
                 // Process the CSS using the configured pre-processors
                 for (let i = 0; i < preProcessors.length; i++) {
                     const preProcessor = preProcessors[i];
 
+                    // Skip processors which do not process this file type
                     if (!preProcessor.doesProcess(idExtension)) {
                         continue;
                     }
@@ -104,12 +103,16 @@ export default function litStyles(options = {}) {
                     // Process the current styles using the processor
                     const {
                         styles: newStyles = styles,
-                        watchFiles = []
+                        watchFiles = [],
+                        warnings = []
                     } = await preProcessor.process({
                         pluginOptions: options,
                         moduleId: id,
                         styles
                     });
+
+                    // Log any warnings
+                    warnings.forEach(warn => console.warn(warn));
 
                     // Watch any files that the processor indicated should be watched
                     watchFiles.forEach(watchId => this.addWatchFile(watchId));
