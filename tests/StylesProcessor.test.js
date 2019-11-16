@@ -58,7 +58,7 @@ test(`does process any extension when the * extension is supplied`, async t => {
     t.assert(processor.doesProcess(`.any`));
 });
 
-test(`does process supploed extensions when the * extension is supplied`, async t => {
+test(`does process supplied extensions when the * extension is supplied`, async t => {
     const processor = new StylesProcessor({
         extensions: [ `*`, `.css` ]
     });
