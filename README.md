@@ -51,7 +51,7 @@ export default {
 ```
 
 ```scss
-// src/index.scss
+// src/my-component.scss
 .some {
     .scss {
         background: red;
@@ -62,7 +62,7 @@ export default {
 ```js
 // src/index.js
 import { html, LitElement } from 'lit-element';
-import styles from './component.scss';
+import styles from './my-component.scss';
 
 class MyComponent extends LitElement {
     static styles = styles;
@@ -109,7 +109,7 @@ details.
 Type: `any`
 
 Any additional options to pass to the Sass processor ([see documentation](https://www.npmjs.com/package/sass#api)).
-If `data` or `includesPaths` are supplied they will be overridden.
+If `data` or `includePaths` are supplied they will be overridden.
 
 ### postcss
 

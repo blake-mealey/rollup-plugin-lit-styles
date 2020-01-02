@@ -73,7 +73,7 @@ interface LitStylesOptions {
 
     /**
      * Any additional options to pass to the Sass processor (see documentation here:
-     * https://www.npmjs.com/package/sass#api). If `data` or `includesPaths` are
+     * https://www.npmjs.com/package/sass#api). If `data` or `includePaths` are
      * supplied they will be overridden
      */
     readonly sass?: any;
