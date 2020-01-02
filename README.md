@@ -109,7 +109,7 @@ details.
 Type: `any`
 
 Any additional options to pass to the Sass processor ([see documentation](https://www.npmjs.com/package/sass#api)).
-If `data` or `includePaths` are supplied they will be overridden.
+If `data` is supplied, it will be overridden.
 
 ### postcss
 
