@@ -9,12 +9,6 @@ A Rollup.js plugin for loading CSS styles into [lit-html](https://lit-html.polym
 The default configuration supports Sass and PostCSS processing, but the plugin provides
 support for custom style processing.
 
-Important note: in order to use the built-in Sass and PostCSS processing, you must first
-install the relevant peer dependencies:
-
-* Sass: `npm i --save sass`
-* PostCSS: `npm i --save postcss`
-
 ## Installation
 
 ```sh
@@ -23,6 +17,29 @@ yarn add rollup-plugin-lit-styles -D
 
 # npm
 npm i rollup-plugin-lit-styles -D
+```
+
+In order to use the built-in Sass and PostCSS processing, you must first
+install the relevant peer dependencies:
+
+Sass:
+
+```sh
+# yarn
+yarn add sass -D
+
+# npm
+npm i sass -D
+```
+
+PostCSS:
+
+```sh
+# yarn
+yarn add postcss -D
+
+# npm
+npm i postcss -D
 ```
 
 ## Usage
@@ -151,8 +168,7 @@ An asyncronous processing function that will receive as input a dictionary with 
 * `styles`: The styles to process. Either the initial contents of the file being
   processed or the resulting styles from the previous processor.
 
-And returning a promise resolving with a dictionary with the following (optional)
-properties:
+And returning a promise resolving with a dictionary with the following properties:
 
 * `styles`: The styles after being processed by the processor.
 * `watchFiles`: An optional array of file paths to tell Rollup to watch for changes
