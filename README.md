@@ -6,8 +6,8 @@
 </p>
 
 A Rollup.js plugin for loading CSS styles into [lit-html](https://lit-html.polymer-project.org/) components with pre-processing.
-The default configuration supports Sass and PostCSS processing, but the plugin provides
-support for custom style processing.
+Comes batteries-included for Sass and PostCSS processing, and provides support for
+user-defined style processing for other CSS processors.
 
 ## Installation
 
@@ -22,24 +22,14 @@ npm i rollup-plugin-lit-styles -D
 In order to use the built-in Sass and PostCSS processing, you must first
 install the relevant peer dependencies:
 
-Sass:
-
 ```sh
 # yarn
-yarn add sass -D
+yarn add sass -D        # to use sass processing
+yarn add postcss -D     # to use postcss processing
 
 # npm
-npm i sass -D
-```
-
-PostCSS:
-
-```sh
-# yarn
-yarn add postcss -D
-
-# npm
-npm i postcss -D
+npm i sass -D           # to use sass processing
+npm i postcss -D        # to use postcss processing
 ```
 
 ## Usage
@@ -144,6 +134,9 @@ An array of PostCSS plugins to pass to the PostCSS processor.
 ## Custom processors
 
 For examples of what a processor looks like, refer to [defaultPreProcessors.js](./src/defaultPreProcessors.js).
+
+If you create a processor definition for your favourite CSS processor, feel free to
+submit a PR to add it as a default.
 
 To create a custom processor, pass a dictionary with the following properties to the
 `preProcessors` option:
