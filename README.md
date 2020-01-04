@@ -19,19 +19,6 @@ yarn add rollup-plugin-lit-styles -D
 npm i rollup-plugin-lit-styles -D
 ```
 
-In order to use the built-in Sass and PostCSS processing, you must first
-install the relevant peer dependencies:
-
-```sh
-# yarn
-yarn add sass -D        # to use sass processing
-yarn add postcss -D     # to use postcss processing
-
-# npm
-npm i sass -D           # to use sass processing
-npm i postcss -D        # to use postcss processing
-```
-
 ## Usage
 
 ```js
