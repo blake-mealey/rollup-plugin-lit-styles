@@ -9,18 +9,21 @@ steps:
   displayName: Install dependencies
   inputs:
     command: install
+    verbose: true
 
 - task: Npm@1
   displayName: Run linter
   inputs:
     command: custom
     customCommand: run lint
+    verbose: true
 
 - task: Npm@1
   displayName: Run tests with coverage
   inputs:
     command: custom
     customCommand: run test:cover
+    verbose: true
 
 - task: PublishTestResults@2
   displayName: Publish test results
@@ -42,3 +45,4 @@ steps:
   inputs:
     command: custom
     customCommand: run build
+    verbose: true
